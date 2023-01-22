@@ -9,17 +9,31 @@ import org.springframework.stereotype.Service
 class DanceStyleService @Autowired constructor (
     private val repository: DanceStyleRepository
 ) {
-    fun getAll(): List<DanceStyle> = repository.findAll()
+    /**
+     * Returns all Dance Styles.
+     * @return list of dance styles
+     */
+    internal fun getAll(): List<DanceStyle> = repository.findAll()
 
-    fun getById(id: Long): DanceStyle = repository.findById(id).orElseThrow{
-        DanceStyleNotFoundException(
-            HttpStatus.NOT_FOUND,
-            "No dance style was found."
-        )}
+    /**
+     * Finds a Dance Style in database by its ID.
+     * @return found dance style
+     * @throws DanceStyleNotFoundException when it does not found matching dance style by id
+     */
+    internal fun getById(id: Long): DanceStyle = repository.findById(id).orElseThrow{DanceStyleNotFoundException()}
 
-    fun create(danceStyle: DanceStyle): DanceStyle = repository.save(danceStyle)
+    /**
+     * Adds a new Dance Style to a database.
+     * @return created dance style
+     */
+    internal fun create(danceStyle: DanceStyle): DanceStyle = repository.save(danceStyle)
 
-    fun update(id: Long, danceStyle: DanceStyle): DanceStyle {
+    /**
+     * Updates a Dance Style by its ID.
+     * @return updated dance style
+     * @throws DanceStyleNotFoundException when it does not found matching dance style by id
+     */
+    internal fun update(id: Long, danceStyle: DanceStyle): DanceStyle {
         return if (repository.existsById(id)) {
             repository.save(
                 DanceStyle(
@@ -31,7 +45,11 @@ class DanceStyleService @Autowired constructor (
         } else throw DanceStyleNotFoundException()
     }
 
-    fun delete(id: Long) {
+    /**
+     * Deletes a Dance Style by its ID.
+     * @throws DanceStyleNotFoundException when it does not found matching dance style by id
+     */
+    internal fun delete(id: Long) {
         return if (repository.existsById(id)) {
             repository.deleteById(id)
         } else throw DanceStyleNotFoundException()

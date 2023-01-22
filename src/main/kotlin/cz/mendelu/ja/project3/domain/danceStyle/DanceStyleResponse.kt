@@ -3,6 +3,7 @@ package cz.mendelu.ja.project3.domain.danceStyle
 import io.swagger.v3.oas.annotations.media.Schema
 
 data class DanceStyleResponse(
+
     @Schema(example = "1")
     var id: Long,
 

@@ -1,5 +1,6 @@
 package cz.mendelu.ja.project3.domain.danceStyle
 
+import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -16,15 +17,18 @@ class DanceStyleController @Autowired constructor(
 
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
-    fun getAll(): List<DanceStyle> = service.getAll()
+    @Operation(summary = "Returns all dance styles")
+    fun getAll(): List<DanceStyleResponse> = service.getAll().toResponses()
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun getById(@PathVariable("id") id: Long): DanceStyle = service.getById(id)
+    @Operation(summary = "Returns one dance style by its id")
+    fun getById(@PathVariable("id") id: Long): DanceStyleResponse = service.getById(id).toResponse()
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    fun add(@RequestBody body: DanceStyleRequest): DanceStyle = service.create(body.toDanceStyle())
+    @Operation(summary = "Adds new dance style")
+    fun add(@RequestBody body: DanceStyleRequest): DanceStyleResponse = service.create(body.toDanceStyle()).toResponse()
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -33,6 +37,7 @@ class DanceStyleController @Autowired constructor(
         ApiResponse(responseCode = "202", description = "Accepted"),
         ApiResponse(responseCode = "400", description = "Bad Request"),
         )
+    @Operation(summary = "Updates a dance style by its id")
     fun update(@PathVariable("id") id: Long, @RequestBody body: DanceStyleRequest): DanceStyleResponse = service.update(id, body.toDanceStyle()).toResponse()
 
     @DeleteMapping("/{id}")
@@ -40,6 +45,7 @@ class DanceStyleController @Autowired constructor(
     @ApiResponses(
         ApiResponse(responseCode = "404", description = "DanceStyle Not Found")
     )
+    @Operation(summary = "Deletes a dance style by its id")
     fun delete(@PathVariable("id") id: Long): Unit = service.delete(id)
 
 }
