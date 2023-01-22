@@ -1,4 +1,4 @@
-# Dance Studio
+# Dance Studio :dancer:
 ### Spring Boot + Kotlin Application Preview
 Project for Java Applications course
 - codebase in Kotlin
