@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 class DanceStyleNotFoundException(
-    val statusCode: HttpStatus,
-    val reason: String
+    val statusCode: HttpStatus = HttpStatus.NOT_FOUND,
+    val reason: String = "Dance Style with this ID was not found."
 ) : NotFoundException()

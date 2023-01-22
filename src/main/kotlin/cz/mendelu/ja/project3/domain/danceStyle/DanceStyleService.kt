@@ -2,7 +2,6 @@ package cz.mendelu.ja.project3.domain.danceStyle
 
 import cz.mendelu.ja.project3.utils.exceptions.DanceStyleNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 
@@ -29,11 +28,13 @@ class DanceStyleService @Autowired constructor (
                     origin = danceStyle.origin
                 )
             )
-        } else {
-            println("cus")
-            throw DanceStyleNotFoundException(HttpStatus.NOT_FOUND, "")
-        }
+        } else throw DanceStyleNotFoundException()
     }
 
+    fun delete(id: Long) {
+        return if (repository.existsById(id)) {
+            repository.deleteById(id)
+        } else throw DanceStyleNotFoundException()
+    }
 
 }
