@@ -41,7 +41,12 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-ui:1.6.14")
 
     // tests
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude("org.junit.vintage", "junit-vintage-engine")
+        exclude("org.mockito", "mockito-core")
+    }
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    implementation("com.ninja-squad:springmockk:4.0.0")
 }
 
 tasks.withType<KotlinCompile> {
