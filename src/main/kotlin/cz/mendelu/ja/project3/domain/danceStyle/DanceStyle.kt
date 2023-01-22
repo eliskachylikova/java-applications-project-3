@@ -1,4 +1,4 @@
-package cz.mendelu.ja.project3.danceStyles
+package cz.mendelu.ja.project3.domain.danceStyle
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -18,5 +18,7 @@ data class DanceStyle (
     @Column(name = "origin", nullable = true)
     val origin: String?
 ) {
-    constructor() : this(-1, "", "")
+    constructor(name: String?, origin: String?) : this(-1, name, origin)
+    constructor() : this(-1, "", "") {
+    }
 }
